@@ -1,0 +1,188 @@
+:root {
+    /* scene variables */
+    --ambient-color: rgb(46, 11, 11);
+    --width: 900px;
+    --height: 600px;
+
+    /* fall animation variables */
+    --fall-start-top: 0;
+    --fall-start-left: 0;
+    --fall-start-rx: 0;
+    --fall-start-ry: 0;
+    --fall-start-rz: 0;
+    --fall-start-s: 0.3;
+    --fall-end-top: 100%;
+    --fall-end-left: 100%;
+    --fall-end-rx: 1turn;
+    --fall-end-ry: 1turn;
+    --fall-end-rz: 1turn;
+    --fall-end-s: 0.7;
+    --fall-duration: 10s;
+
+    /* shine animation variables */
+    --shine-start-angle: -.1turn;
+    --shine-end-angle: -.11turn;
+}
+
+body {
+    margin: 0;
+    font-family: Arial;
+    background-color: var(--ambient-color);
+}
+
+.container {
+    border: 1px solid white;
+    width: var(--width);
+    height: var(--height);
+    position: absolute;
+    overflow: hidden;
+}
+
+.background {
+
+    background-image: url(img.jpg);
+    background-size: cover;  
+}
+
+.scene-mask-1 {
+    perspective: 500px;
+
+    /* CSS mask */
+    -webkit-mask-image: url(img-1-mask-1.svg);
+    -webkit-mask-size: cover;
+}
+
+.scene-mask-2 {
+    perspective: 500px;
+
+    /* CSS mask */
+    -webkit-mask-image: url(img-1-mask-2.svg);
+    -webkit-mask-size: cover;
+}
+
+.leaf {
+    width: calc( var(--width) / 10);
+    height: calc( var(--width) / 10);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;    
+}
+
+.leaf-1 {
+    background-image: url(leaf.png);
+}
+.leaf-2 {
+    background-image: url(leaf2.png);
+}
+.leaf-3 {
+    background-image: url(leaf3.png);
+}
+.leaf-4 {
+    background-image: url(leaf4.png);
+}
+.leaf-5 {
+    background-image: url(leaf5.png);
+}
+
+.fall {
+    animation: fall var(--fall-duration) ease-in;
+    animation-fill-mode: forwards;
+}
+
+
+ /* CSS Animations */
+@keyframes fall {
+    from {
+        left: var(--fall-start-left);
+        top:  var(--fall-start-top);
+        transform: rotateX(var(--fall-start-rx)) rotateY(var(--fall-start-ry)) rotateZ(var(--fall-start-rz)) scale(var(--fall-start-s));
+    }
+
+    to {
+        left: var(--fall-end-left);
+        top: var(--fall-end-top);
+        transform: rotateX(var(--fall-end-rx)) rotateY(var(--fall-end-ry)) rotateZ(var(--fall-end-rz)) scale(var(--fall-end-s));
+    }
+    
+}
+
+.ray {
+    width: 1600px;
+    height: 20px;
+    position: absolute;
+    top: 45px;
+    left: -300px;
+
+    background-image:
+    conic-gradient(
+        transparent .745turn,
+        #e9e7a6, 
+        #fdf895, 
+        #eef0c0, 
+        #fdf895, 
+        #f1ea91, 
+        transparent .754turn
+        );
+
+    transform: rotate(-.1turn);
+    mix-blend-mode: overlay;
+}
+
+.fog {
+    width: 1600px;
+    height: 800px;
+    background-size: contain;
+}
+
+.fog-1 {
+    background-image: url(fog-1.png);
+    opacity: 0.75;
+    filter: sepia(100%) saturate(1000%) hue-rotate(328deg);
+
+}
+
+.slide {
+    animation: slide 500s linear;
+}
+
+@keyframes slide {
+    from {
+        background-position-x: 0;
+
+    }
+    to {
+        background-position-x: 10000px;
+
+    }
+}
+
+.ray-1 {
+    transform: rotate(-.1turn);
+    mix-blend-mode: overlay;
+    opacity: 0.5;
+    animation: shine 5s infinite alternate;
+}
+
+.ray-2 {
+    --shine-start-angle: -.05turn;
+    --shine-end-angle: -.059turn;
+
+    transform: rotate(-.09turn);
+    mix-blend-mode: soft-light;
+    opacity: 0.5;
+    animation: shine 5s infinite alternate;
+    animation-delay: .2s;
+
+}
+
+@keyframes shine {
+    from {
+    transform: rotate(var(--shine-start-angle));
+
+    }
+    to {
+        transform: rotate(var(--shine-end-angle));
+    }
+
+}
